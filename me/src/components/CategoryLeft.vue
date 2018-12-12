@@ -1,5 +1,5 @@
 <template>
-	<div class="category-right">
+	<div class="category-left">
 		
 	</div>
 </template>

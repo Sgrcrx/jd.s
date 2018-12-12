@@ -13,18 +13,18 @@
 				<div class='tu'>
 					<i class='fa fa-search'></i>
 				</div>
-				<input type='text' name='' id='' value='' placeholder='请输入搜索内容'  @focus="show=true" />
+				<input type='text' name='' id='' value='' placeholder='请输入搜索内容' v-model="keyword"  @focus="show=true" />
 			</div>
 			<div class='user'>
 				<button>搜索</button>
 			</div>
 		</header>
 
-		<search-click v-model='show'></search-click>
+		<search-click v-model='show' @search='search'></search-click>
 
 		<goods-item></goods-item>
 		<goods-choese></goods-choese>
-		<goods-more></goods-more>
+		<goods-more  v-for="(item,index) in mores" :id='item.id' :title='item.title' :images='item.images' :money='item.money' :talks='item.talks' :ads='item.ads'></goods-more>
 
 		<div class="crx"></div>
 		<footeres></footeres>
@@ -38,13 +38,72 @@
 	import GoodsItem from '../components/GoodsItem'
 	import GoodsChoese from '../components/GoodsChoese'
 	import GoodsMore from '../components/GoodsMore'
+	import qs from 'qs'
 
 	export default {
 		data() {
 			return {
 				keyword: '',
-				productes: [],
-				show: false
+//				productss: [],
+				show: false,
+				mores:[],
+//				mores: [{
+//					id:12,
+//					images: require('../../public/img/ThinkCentre.jpg'),
+//					title: '联想（ThinkCentre）E74英特尔六代酷睿大机箱商用台式机电脑 win10系统串并口台式机 主机+19.5英寸显示器 0KCD I3-6100/4G/500G 无光驱',
+//					money: 3499,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '广告>'
+//				},{
+//					id:13,
+//					images: require('../../public/img/ThinkPad.jpg'),
+//					title: '联想ThinkPad&nbsp;翼480（0VCD）英特尔8代酷睿14英寸轻薄窄边框笔记本电脑（i5-8250U&nbsp;8G&nbsp;128GSSD+500G&nbsp;2G独显)',
+//					money: 4999,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '查看同款二手>'
+//				},{
+//					id:14,
+//					images: require('../../public/img/ThinkCentre.jpg'),
+//					title: '联想（ThinkCentre）E74英特尔六代酷睿大机箱商用台式机电脑 win10系统串并口台式机 主机+19.5英寸显示器 0KCD I3-6100/4G/500G 无光驱',
+//					money: 3499,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '广告>'
+//				}, {
+//					id:15,
+//					images: require('../../public/img/ThinkCentre.jpg'),
+//					title: '联想（ThinkCentre）E74英特尔六代酷睿大机箱商用台式机电脑 win10系统串并口台式机 主机+19.5英寸显示器 0KCD I3-6100/4G/500G 无光驱',
+//					money: 3499,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '广告>'
+//				}, {
+//					id:16,
+//					images: require('../../public/img/ThinkCentre.jpg'),
+//					title: '联想（ThinkCentre）E74英特尔六代酷睿大机箱商用台式机电脑 win10系统串并口台式机 主机+19.5英寸显示器 0KCD I3-6100/4G/500G 无光驱',
+//					money: 3499,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '广告>'
+//				}, {
+//					id:17,
+//					images: require('../../public/img/ThinkCentre.jpg'),
+//					title: '联想（ThinkCentre）E74英特尔六代酷睿大机箱商用台式机电脑 win10系统串并口台式机 主机+19.5英寸显示器 0KCD I3-6100/4G/500G 无光驱',
+//					money: 3499,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '广告>'
+//				},{
+//					id:18,
+//					images: require('../../public/img/ThinkCentre.jpg'),
+//					title: '联想（ThinkCentre）E74英特尔六代酷睿大机箱商用台式机电脑 win10系统串并口台式机 主机+19.5英寸显示器 0KCD I3-6100/4G/500G 无光驱',
+//					money: 3499,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '广告>'
+//				},{
+//					id:19,
+//					images: require('../../public/img/ThinkPad.jpg'),
+//					title: '联想ThinkPad&nbsp;翼480（0VCD）英特尔8代酷睿14英寸轻薄窄边框笔记本电脑（i5-8250U&nbsp;8G&nbsp;128GSSD+500G&nbsp;2G独显)',
+//					money: 4999,
+//					talks: '200+条评价&nbsp;好评率99%',
+//					ads: '查看同款二手>'
+//				},]
 			};
 		},
 
@@ -59,22 +118,19 @@
 		
 		
 		methods: {
-			search() {
-				axios.get(this.serveRoot + "/index.php/api/index/searchProduct?keyword=" + this.keyword).then(res => {
-					console.log(res);
-					this.productes = res.data;
-				}).catch(err => {});
-			},
-			hide(){
-				this.show = false;
-				this.$emit('input',false);
-				document.body.style.overflow = "hidden";
+			search(val){
+				this.mores = val;
 			}
+			
 		},
 		created() {
 			console.log(this.$route);
 			console.log(this.$router);
 			console.log("search-bar");
+			//
+			if(this.$route.params.product!=null){
+				this.mores = this.$route.params.product;
+			}
 		}
 	}
 </script>
@@ -206,7 +262,7 @@
 		border: none;
 		outline: none;
 		border-radius: 6px;
-		margin-top: 10px;
+		margin-top: 8px;
 		font-size: 14px;
 		background-color: #e93b3d;
 	}

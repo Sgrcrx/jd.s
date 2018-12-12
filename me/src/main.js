@@ -16,7 +16,7 @@ import "./assets/css/weui.css"
 
 
 // 设置服务器地址
-Vue.prototype.serveRoot = "http://192.168.255.113:8888";
+Vue.prototype.serveRoot = "http://192.168.1.29:8888";
 
 
 Vue.config.productionTip = false

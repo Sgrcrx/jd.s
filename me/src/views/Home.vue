@@ -19,6 +19,12 @@ import Goods from'../components/Goods'
 
 
 export default {
+	data() {
+			return {
+				product: []
+
+			};
+		},
 
   name: 'home',
   components: { 
@@ -29,7 +35,12 @@ export default {
     Goods
     
   	
-  }
+  },
+  created() {
+			// 当前页面的路由对象
+			console.log(this.$route);
+			console.log(this.$router);
+		},
 }
 
 </script>

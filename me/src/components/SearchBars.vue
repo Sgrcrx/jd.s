@@ -11,9 +11,11 @@
 					<input type='text' name='' id='' value='' placeholder='请输入搜索内容'  @focus="show=true"/>
 				</div>
 				<div class='user'>
-					<i class='fa fa-user'></i>
+					<i class='fa fa-user'>
+						
+					</i>
 				</div>
-				<search-click v-model="show"></search-click>
+				<search-click v-model="show" @search='search'></search-click>
 			</header>
 			
 	</div>
@@ -44,6 +46,12 @@
 		},
 		components:{
 			SearchClick
+		},
+		methods:{
+			search(val){
+				console.log(val);
+				this.$router.push({name:'search',params:{product:val}});
+			}
 		}
 
 	}

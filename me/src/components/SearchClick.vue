@@ -11,10 +11,10 @@
 				<div class='tu'>
 					<i class='fa fa-search'></i>
 				</div>
-				<input type='text' name='' id='' value='' placeholder='请输入搜索内容'/>
+				<input type='search' name='' id='' value='' placeholder='请输入搜索内容' v-model="keyword" />
 			</div>
 			<div class='user'>
-				<button>搜索</button>
+				<button @click="search">搜索</button>
 			</div>
 		</header>
 		
@@ -22,9 +22,12 @@
 </template>
 
 <script>
+	import qs from 'qs'
+	import axios from 'axios'
 	export default{
 		data(){
 			return{
+				keyword:'',
 				show:false
 			};
 		},
@@ -44,9 +47,21 @@
 			}
 		},
 		methods:{
+			search() {
+				axios.post(this.serveRoot + "/index.php/api/index/searchProduct", qs.stringify({
+					keyword: this.keyword,
+					id:123,
+					order:456
+				})).then(res => {
+					console.log(res);
+					this.hide();
+					this.$emit('search',res.data);
+					
+				}).catch(err => {});
+			},
 			hide(){
-				this.show = false;
-				this.$emit('input',false);
+				this.hide();
+				this.$emit('search',res.data);
 				document.body.style.overflow = "hidden";
 			}
 		},

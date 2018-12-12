@@ -18,11 +18,12 @@
 				<button>搜索</button>
 			</div>
 	</header>
+	
+		
+		
 	<!--search2-->
 		<search-click v-model="show"></search-click>
-		<div class="category-layout">
-			
-		</div>
+		<category-layout></category-layout>
 		<footeres></footeres>
 	</div>
 </template>
@@ -30,6 +31,7 @@
 <script>
 	import Footeres from '@/components/Footeres'
 	import SearchClick from '../components/SearchClick'
+	import CategoryLayout from '../views/CategoryLayout'
 
 	export default {
 		data() {
@@ -40,7 +42,8 @@
 		name: 'category',
 		components: {
 			Footeres,
-			SearchClick
+			SearchClick,
+			CategoryLayout
 		},
 		methods:{
 			hide(){
