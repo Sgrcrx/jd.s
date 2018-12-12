@@ -64,6 +64,8 @@
 		right: 0px;
 		left: 0px;
 		background-color: #fff;
+		z-index: 99999;
+		
 	}
 	
 	body {
@@ -82,6 +84,7 @@
 		padding: 0px 10px;
 		background-color: #fff;
 		z-index: 999;
+		border-bottom: 1px solid #eee;
 	}
 	
 	header.fixed {

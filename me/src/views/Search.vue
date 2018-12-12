@@ -1,6 +1,7 @@
 <template>
 	<div class="search">
 		<!--<input type="text" name="" id="" value="" v-model="keyword" @focus="show=ture" /><button @click="search">搜索</button>-->
+
 		<header>
 			<span class="lefts">
 				<a href="#" @click.prevent="hide"><i class="fa fa-angle-left"></i></a>
@@ -12,7 +13,7 @@
 				<div class='tu'>
 					<i class='fa fa-search'></i>
 				</div>
-				<input type='text' name='' id='' value='' placeholder='请输入搜索内容' @focus="show=true" />
+				<input type='text' name='' id='' value='' placeholder='请输入搜索内容'  @focus="show=true" />
 			</div>
 			<div class='user'>
 				<button>搜索</button>
@@ -24,7 +25,7 @@
 		<goods-item></goods-item>
 		<goods-choese></goods-choese>
 		<goods-more></goods-more>
-		
+
 		<div class="crx"></div>
 		<footeres></footeres>
 	</div>
@@ -34,9 +35,9 @@
 	import axios from 'axios'
 	import Footeres from '../components/Footeres'
 	import SearchClick from '../components/SearchClick'
-		import GoodsItem from '../components/GoodsItem'
-		import GoodsChoese from '../components/GoodsChoese'
-		import GoodsMore from '../components/GoodsMore'
+	import GoodsItem from '../components/GoodsItem'
+	import GoodsChoese from '../components/GoodsChoese'
+	import GoodsMore from '../components/GoodsMore'
 
 	export default {
 		data() {
@@ -55,17 +56,25 @@
 			GoodsChoese,
 			GoodsMore
 		},
+		
+		
 		methods: {
 			search() {
 				axios.get(this.serveRoot + "/index.php/api/index/searchProduct?keyword=" + this.keyword).then(res => {
 					console.log(res);
 					this.productes = res.data;
 				}).catch(err => {});
+			},
+			hide(){
+				this.show = false;
+				this.$emit('input',false);
+				document.body.style.overflow = "hidden";
 			}
 		},
 		created() {
 			console.log(this.$route);
 			console.log(this.$router);
+			console.log("search-bar");
 		}
 	}
 </script>
@@ -89,6 +98,7 @@
 		left: 0;
 		box-sizing: border-box;
 		padding: 0px 10px;
+		border-bottom: 1px solid #eee;
 		/*background-color: salmon;*/
 	}
 	
@@ -200,4 +210,5 @@
 		font-size: 14px;
 		background-color: #e93b3d;
 	}
+	
 </style>
