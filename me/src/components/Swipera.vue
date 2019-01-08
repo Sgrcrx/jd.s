@@ -64,4 +64,5 @@
 	.swiper-container img {
 		width: 100%;
 	}
+	
 </style>
